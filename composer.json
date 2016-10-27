@@ -1,0 +1,13 @@
+{
+    "name": "krystiank/ocronline",
+    "description": "OCR Online",
+    "require": {
+        "silex/silex": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Krystian Kusz",
+            "email": "krystian@kusz.me"
+        }
+    ]
+}
