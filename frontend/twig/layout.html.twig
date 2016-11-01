@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <script src="/assets/js/{{ js_filename }}"></script>
+    <link rel="stylesheet" href="/assets/styles/{{ css_filename }}">
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+    {% block body %}
+        <h1>Hello!</h1>
+    {% endblock %}
+    {% block styles %}{% endblock %}
+</body>
+</html>

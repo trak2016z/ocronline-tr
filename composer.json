@@ -2,7 +2,8 @@
     "name": "krystiank/ocronline",
     "description": "OCR Online",
     "require": {
-        "silex/silex": "^2.0"
+        "silex/silex": "^2.0",
+        "twig/twig": "^1.27"
     },
     "authors": [
         {
