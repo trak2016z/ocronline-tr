@@ -2,14 +2,16 @@
 <html>
 <head>
     <title>{% block title %}Welcome!{% endblock %}</title>
-    <script src="/assets/js/{{ js_filename }}"></script>
-    <link rel="stylesheet" href="/assets/styles/{{ css_filename }}">
-    {% block scripts %}{% endblock %}
+    
+    <link rel="stylesheet" href="/assets/bundle.css">
+    
 </head>
 <body>
     {% block body %}
         <h1>Hello!</h1>
     {% endblock %}
     {% block styles %}{% endblock %}
+    <script src="/assets/main.min.js"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
