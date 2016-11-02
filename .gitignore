@@ -51,3 +51,4 @@ jspm_packages
 *.tgz
 
 /web/assets
+jsconfig.json

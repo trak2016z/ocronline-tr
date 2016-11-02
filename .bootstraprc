@@ -106,7 +106,8 @@ scripts:
   dropdown: true
   modal: true
   popover: true
+  tooltip: true
   scrollspy: true
   tab: true
-  tooltip: true
+  
 util: true
