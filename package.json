@@ -29,6 +29,10 @@
     "css-loader": "^0.25.0",
     "del": "^2.2.2",
     "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "^0.9.0",
+    "less": "^2.7.1",
+    "font-awesome": "^4.7.0",
+    "font-awesome-webpack": "^0.0.4",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-livereload": "^3.8.1",
@@ -36,7 +40,6 @@
     "gulp-rev": "^7.1.2",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
-    "gulp-webpack": "^1.5.0",
     "node-sass": "^3.10.1",
     "postcss-loader": "^1.1.0",
     "resolve-url-loader": "^1.6.0",
@@ -44,6 +47,8 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-stream": "^3.2.0"
   }
 }
