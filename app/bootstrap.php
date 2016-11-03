@@ -13,8 +13,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), [
 // Adding Twig globals
 
 
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('home.html.twig');
-});
+$app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
 
 $app->run();

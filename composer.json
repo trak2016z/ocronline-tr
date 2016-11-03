@@ -11,5 +11,10 @@
             "name": "Krystian Kusz",
             "email": "krystian@kusz.me"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "OCROnline\\": "src/"
+        }
+    }
 }
