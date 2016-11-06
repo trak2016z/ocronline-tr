@@ -52,3 +52,5 @@ jspm_packages
 
 /web/assets
 jsconfig.json
+/app/cache
+.vscode
