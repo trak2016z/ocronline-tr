@@ -54,3 +54,4 @@ jspm_packages
 jsconfig.json
 /app/cache
 .vscode
+/app/logs

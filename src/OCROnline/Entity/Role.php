@@ -1,9 +1,9 @@
 <?php
-
+// src/OCROnline/Entity/User.php
 namespace OCROnline\Entity;
 
 /**
- * @Table(name="roles", options={"collate"="utf8mb4_general_ci", "charset"="utf8mb4", "engine"="InnoDB"})
+ * @Table(name="roles")
  * @Entity()
  */
 class Role

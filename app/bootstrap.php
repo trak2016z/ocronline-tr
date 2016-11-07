@@ -16,6 +16,25 @@ $app->register(new NunoPress\Silex\Config\Provider\ConfigServiceProvider(), [
     'config.environment' => ($app['debug']) ? 'dev' : 'prod'
 ]);
 
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.logfile' => APP_BASE . '/app/logs/'.date('Y-m-d').'.log',
+));
+
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'admin' => array(
+            'pattern' => '^/admin',
+            'http' => true,
+            'users' => array(
+                // raw password is foo
+                'admin' => array('ROLE_ADMIN', '$2y$10$3i9/lVd8UOFIJ6PAMFt8gu3/r5g0qeCJvoSlLCsvMTythye19F77a'),
+            ),
+        ),
+    )
+));
+
 // Templates
 $app->register(new Silex\Provider\TwigServiceProvider(), $app['config']->get('twig') );
 
