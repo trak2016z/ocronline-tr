@@ -21,6 +21,14 @@ class Role
     private $type;
 
     /**
+     * @ManyToMany(targetEntity="User", mappedBy="roles")
+     */
+    private $users;
+
+    public function __construct() {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    /**
      * Get id
      *
      * @return integer

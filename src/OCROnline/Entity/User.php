@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Table(name="users")
- * @Entity(repositoryClass="OCROnline\Entity\UserRepository")
+ * @Entity()
  */
 class User implements UserInterface, \Serializable
 {
@@ -37,11 +37,16 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ManyToMany(targetEntity="Role", inversedBy="users")
+     * @JoinTable(name="roles_users")
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getUsername()
@@ -63,7 +68,7 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array_map(function($r) {return $r->getType();}, $this->roles->getValues());
     }
 
     public function eraseCredentials()

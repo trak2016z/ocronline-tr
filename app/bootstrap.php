@@ -1,5 +1,5 @@
 <?php
-define("APP_BASE", __DIR__ . "/../");
+define("APP_BASE", dirname(__DIR__));
 
 // app/bootstrap.php
 require_once APP_BASE . '/vendor/autoload.php';
@@ -22,18 +22,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
-$app->register(new Silex\Provider\SecurityServiceProvider(), array(
-    'security.firewalls' => array(
-        'admin' => array(
-            'pattern' => '^/admin',
-            'http' => true,
-            'users' => array(
-                // raw password is foo
-                'admin' => array('ROLE_ADMIN', '$2y$10$3i9/lVd8UOFIJ6PAMFt8gu3/r5g0qeCJvoSlLCsvMTythye19F77a'),
-            ),
-        ),
-    )
-));
+
 
 // Templates
 $app->register(new Silex\Provider\TwigServiceProvider(), $app['config']->get('twig') );
@@ -49,13 +38,31 @@ $app->register(new DoctrineOrmServiceProvider, array(
             // Using actual filesystem paths
             array(
                 'type' => 'annotation',
-                'namespace' => 'OCROnline\Entity',
-                'path' => APP_BASE . '/src/Entity',
+                'namespace' => 'OCROnline\\Entity',
+                'path' => APP_BASE . '/src/OCROnline/Entity',
             ),
         ),
     ),
 ));
 
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'unsecured' => array(
+            'pattern' => '^/',
+            'http' => true,
+            'anonymous' => true,
+            'users' => function () use ($app) {
+                return new OCROnline\UserProvider($app['orm.em']);
+            },
+        ),
+        
+    ),
+    'security.access_rules' => array(
+        array('^/admin', 'ROLE_ADMIN'),
+    )
+));
+
 $app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
+$app->get("/admin", "OCROnline\\Controller\\AdminController::indexAction");
 
 $app->run();

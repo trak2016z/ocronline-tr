@@ -27,7 +27,13 @@
             </ul>
             <ul class="nav navbar-nav float-md-right">
                 <li class="nav-item">
-                    <a class="btn btn-primary" href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Zaloguj</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="nav-link">
+                            Zalogowano jako <strong>{{ global.user.username }}</strong>
+                        </a>
+                    {% else %}
+                        <a class="btn btn-primary" href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Zaloguj</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
