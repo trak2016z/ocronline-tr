@@ -43,6 +43,21 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @OneToMany(targetEntity="Document", mappedBy="user")
+     */
+    private $documents;
+
+    /**
+     * @OneToMany(targetEntity="Rank", mappedBy="user")
+     */
+    private $ranks;
+
+    /**
+     * @OneToMany(targetEntity="Comment", mappedBy="user")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->isActive = true;

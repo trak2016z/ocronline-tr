@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class UserProvider implements UserProviderInterface
 {
-    public $em;
+    private $em;
 
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
