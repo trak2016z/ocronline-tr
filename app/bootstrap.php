@@ -49,7 +49,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'unsecured' => array(
             'pattern' => '^/',
-            'http' => true,
+            'form' => array('login_path' => '/login', 'check_path' => '/user/login_check'),
+            'logout' => array('logout_path' => '/user/logout', 'invalidate_session' => true),
             'anonymous' => true,
             'users' => function () use ($app) {
                 return new OCROnline\UserProvider($app['orm.em']);
@@ -59,10 +60,12 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     ),
     'security.access_rules' => array(
         array('^/admin', 'ROLE_ADMIN'),
+        array('^/user',  'ROLE_USER')
     )
 ));
 
 $app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
 $app->get("/admin", "OCROnline\\Controller\\AdminController::indexAction");
+$app->get("/login", "OCROnline\\Controller\\LoginController::indexAction");
 
 $app->run();

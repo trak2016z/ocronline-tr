@@ -5,7 +5,7 @@ class TestClass {
   }
   getId() {
     //...
-    return this.id;
+    return this.id + 2;
   }
 }
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}OCR Online{% endblock %}</title>
     
     <link rel="stylesheet" href="/assets/bundle.css">
     
@@ -25,17 +25,14 @@
                 <a class="nav-link" href="#">O nas</a>
             </li>
             </ul>
-            <ul class="nav navbar-nav float-md-right">
-                <li class="nav-item">
-                    {% if is_granted('ROLE_USER') %}
-                        <a class="nav-link">
-                            Zalogowano jako <strong>{{ global.user.username }}</strong>
-                        </a>
-                    {% else %}
-                        <a class="btn btn-primary" href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Zaloguj</a>
-                    {% endif %}
-                </li>
-            </ul>
+            <span class="navbar-text float-xs-right text-muted">
+                {% if is_granted('ROLE_USER') %}
+                    Zalogowano jako <strong>{{ global.user.username }}</strong>
+                    <a class="btn btn-sm btn-primary" href="/user/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Wyloguj</a>
+                {% else %}
+                    <a class="btn btn-sm btn-primary" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Zaloguj</a>
+                {% endif %}
+            </span>
         </div>
     </nav>
     {% block body %}
