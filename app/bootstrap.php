@@ -64,8 +64,19 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     )
 ));
 
+$app->register(new Silex\Provider\LocaleServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'translator.domains' => array(),
+));
+
+$app->register(new Silex\Provider\CsrfServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+$app->register(new Silex\Provider\FormServiceProvider());
+
+
 $app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
 $app->get("/admin", "OCROnline\\Controller\\AdminController::indexAction");
 $app->get("/login", "OCROnline\\Controller\\LoginController::indexAction");
+$app->get("/register", "OCROnline\\Controller\\RegisterController::indexAction");
 
 $app->run();
