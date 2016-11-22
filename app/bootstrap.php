@@ -78,5 +78,6 @@ $app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
 $app->get("/admin", "OCROnline\\Controller\\AdminController::indexAction");
 $app->get("/login", "OCROnline\\Controller\\LoginController::indexAction");
 $app->get("/register", "OCROnline\\Controller\\RegisterController::indexAction");
+$app->post("/register", "OCROnline\\Controller\\RegisterController::indexAction");
 
 $app->run();

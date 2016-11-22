@@ -16,8 +16,23 @@ class RegisterController
             'name' => 'Your name',
             'email' => 'Your email',
         );*/
+        $user = new \OCROnline\Entity\User();
 
-        $form = $app['form.factory']->createBuilder('OCROnline\\Form\\UserType', null)->getForm();
+        $form = $app['form.factory']->createBuilder(UserType::class, $user)->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $encoder = $app['security.encoder_factory']->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPlainPassword(), $user->getSalt());
+            $user->setPassword($password);
+
+            $em = $app['orm.em'];
+            $em->persist($user);
+            $em->flush();
+            return $app->redirect('/');            
+        }
+        
 
         return $app['twig']->render('register/index.html.twig', array('form' => $form->createView()));
     }
