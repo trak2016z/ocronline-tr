@@ -118,6 +118,11 @@ class User implements UserInterface, \Serializable
         return array_map(function($r) {return $r->getType();}, $this->roles->getValues());
     }
 
+    public function getRolesORM()
+    {
+        return $this->roles;
+    }
+
     public function eraseCredentials()
     {
     }

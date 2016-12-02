@@ -28,6 +28,10 @@ class RegisterController
             $user->setPassword($password);
 
             $em = $app['orm.em'];
+
+            $role_user = $em->getRepository('OCROnline\Entity\Role')->findOneBy(array('type' => 'ROLE_USER'));
+            $user->getRolesORM()->add($role_user);
+
             $em->persist($user);
             $em->flush();
             return $app->redirect('/');            
