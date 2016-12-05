@@ -74,10 +74,13 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 
 
-$app->get("/", "OCROnline\\Controller\\HomeController::indexAction");
-$app->get("/admin", "OCROnline\\Controller\\AdminController::indexAction");
-$app->get("/login", "OCROnline\\Controller\\LoginController::indexAction");
-$app->get("/register", "OCROnline\\Controller\\RegisterController::indexAction");
-$app->post("/register", "OCROnline\\Controller\\RegisterController::indexAction");
+$app->match("/", "OCROnline\\Controller\\HomeController::indexAction");
+$app->match("/admin", "OCROnline\\Controller\\AdminController::indexAction");
+$app->match("/login", "OCROnline\\Controller\\LoginController::indexAction");
+$app->match("/register", "OCROnline\\Controller\\RegisterController::indexAction");
+
+$app->mount("/user", function ($user) {
+    $user->match("/", "OCROnline\\Controller\\UserController::indexAction");
+});
 
 $app->run();
