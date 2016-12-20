@@ -13,15 +13,23 @@ class UserController
         $document = new \OCROnline\Entity\Document();
         $form = $app['form.factory']->createBuilder(DocumentType::class, $document)->getForm();
         $form->handleRequest($request);
+        $em = $app['orm.em'];
+        $token = $app['security.token_storage']->getToken();
+        $user = $token->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $app['orm.em'];
-            $token = $app['security.token_storage']->getToken();
-            $user = $token->getUser();
             $document->setUser($user);
+            $document->readFileContents();
             $em->persist($document);
             $em->flush();
         }
-        return $app['twig']->render('user/index.html.twig', array('form' => $form->createView()));
+
+        $documents = $user->getDocuments();
+        return $app['twig']->render('user/index.html.twig',
+            array(
+                'form' => $form->createView(),
+                'documents' => $documents,
+            )
+        );
     }
 }

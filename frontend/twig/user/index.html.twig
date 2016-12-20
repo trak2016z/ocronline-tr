@@ -4,71 +4,81 @@
 <div class="container">
     <h1>Panel użytkownika</h1>
     <div class="row">
-    <div class="col-lg-6">
-        <div class="card card-block">
-        <h4 class="card-title">Prześlij obraz</h4>
-        
-        {{ form_start(form) }}
-            {{ form_errors(form) }}
-            <div class="form-group row">
-                {{ form_label(form.title, 'Tytuł', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                
-                <div class="col-sm-9">
-                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        <div class="col-lg-6">
+            <div class="card card-block">
+            <h4 class="card-title">Prześlij obraz</h4>
+            
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="form-group row">
+                    {{ form_label(form.title, 'Tytuł', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                    
+                    <div class="col-sm-9">
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                 </div>
-            </div>
-            {% if form_errors(form.title) %}
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            {{ form_errors(form.title) }}
-            </div>
-            {% endif %}
-            <div class="form-group row">
-                {{ form_label(form.fileupload, 'Plik', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                
-                
-                <div class="col-sm-9">
-                    {{ form_widget(form.fileupload, {'attr': {'class': 'form-control'}}) }}
+                {% if form_errors(form.title) %}
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                {{ form_errors(form.title) }}
                 </div>
-            </div>
-            {% if form_errors(form.fileupload) %}
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            {{ form_errors(form.fileupload) }}
-            </div>
-            {% endif %}
-            <div class="form-group row">
-                {{ form_label(form.privacy, 'Prywatność', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                
-                <div class="col-sm-9">
-                    {{ form_widget(form.privacy, {'attr': {'class': 'form-control'}}) }}
+                {% endif %}
+                <div class="form-group row">
+                    {{ form_label(form.fileupload, 'Plik', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                    
+                    
+                    <div class="col-sm-9">
+                        {{ form_widget(form.fileupload, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                 </div>
-            </div>
-            {% if form_errors(form.privacy) %}
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            {{ form_errors(form.privacy) }}
-            </div>
-            {% endif %}
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    {{ form_widget(form.doupload, {'label': 'Prześlij','attr': {'class': 'btn btn-primary'}}) }}
+                {% if form_errors(form.fileupload) %}
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                {{ form_errors(form.fileupload) }}
                 </div>
-            </div>
+                {% endif %}
+                <div class="form-group row">
+                    {{ form_label(form.privacy, 'Prywatność', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                    
+                    <div class="col-sm-9">
+                        {{ form_widget(form.privacy, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                {% if form_errors(form.privacy) %}
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                {{ form_errors(form.privacy) }}
+                </div>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        {{ form_widget(form.doupload, {'label': 'Prześlij','attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+                </div>
 
-            {{ form_widget(form) }}
-        {{ form_end(form) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            Dd
         </div>
     </div>
-    <div class="col-lg-6">
-    col1
-    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Twoje dokumenty</h2>
+            <div class="card-columns">
+                    {% for document in documents %}
+                        {{ doc.entry(document) }}
+                    {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

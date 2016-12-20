@@ -24,13 +24,11 @@ class DocumentType extends AbstractType
                 'constraints' => array(new Assert\File(array(
                     'maxSize' => '10m',
                     'mimeTypes' => array(
-                        'application/pdf',
-                        'application/x-pdf',
                         'image/jpeg',
                         'image/png',
                         'image/gif',
                     ),
-                    'mimeTypesMessage' => 'Nieprawidłowy format pliku. Dozwolone jedynie PDF, JPG, PNG, GIF.',
+                    'mimeTypesMessage' => 'Nieprawidłowy format pliku. Dozwolone jedynie JPG, PNG, GIF.',
                 )))
             ))
             ->add('privacy', ChoiceType::class, array(

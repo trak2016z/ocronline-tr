@@ -123,6 +123,11 @@ class User implements UserInterface, \Serializable
         return $this->roles;
     }
 
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
     public function eraseCredentials()
     {
     }

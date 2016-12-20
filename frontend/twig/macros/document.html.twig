@@ -1,0 +1,10 @@
+{% macro entry(document) %}
+<div class="card">
+  <img class="card-img-top img-fluid" src="/show/thumbnail/{{ document.id }}" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title">{{ document.title }}</h4>
+    <p class="card-text">{{ document.abstract }}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+{% endmacro %}

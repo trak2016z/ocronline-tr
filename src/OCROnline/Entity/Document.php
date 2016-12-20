@@ -2,6 +2,8 @@
 // src/OCROnline/Entity/Document.php
 namespace OCROnline\Entity;
 
+use Intervention\Image\ImageManagerStatic as Image;
+
 /**
  * @Table(name="documents")
  * @Entity()
@@ -46,6 +48,11 @@ class Document
     private $fileContent;
 
     /**
+     * @Column(name="thumbnail", type="blob")
+     */
+    private $thumbnail;
+
+    /**
      * @Column(name="mime_type", type="string", length=30)
      */
     private $mimeType;
@@ -72,6 +79,11 @@ class Document
         $this->creationDatetime = new \DateTime();
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getTitle()
     {
         return $this->title;
@@ -90,7 +102,6 @@ class Document
     public function setFileupload($fileupload)
     {
         $this->fileupload = $fileupload;
-        $this->readFileContents();
     }
 
     public function getUser()
@@ -138,6 +149,11 @@ class Document
         return $this->fileContent;
     }
 
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
     public function setFileContent($fileContent)
     {
         $this->fileContent = $fileContent;
@@ -161,11 +177,31 @@ class Document
             $this->abstract = "";
             $this->creationDatetime = new \DateTime();
             
-            $tess = new \TesseractOCR($this->fileupload->getPathname());
-            $this->recognizedText = $tess->run();
+            $img = Image::make($this->fileupload);
 
-            var_dump($this->recognizedText);
+            $thumbnail = $this->makeThumbnail($img);
+
+            $this->recognizedText = "test123";
+            //$tess = new \TesseractOCR($this->fileupload->getPathname());
+            //$this->recognizedText = $tess->run();
+
+            //var_dump($this->recognizedText);
             $this->fileContent = file_get_contents($this->fileupload->getPathname());
+            $this->thumbnail = $thumbnail->encode('jpg', 60);
+
         }
+    }
+
+    protected function makeThumbnail($img)
+    {
+        $dest_width = 300;
+        $dest_height = 300;
+
+        $width = $img->width();
+        $height = $img->height();
+        $min = min(array($width, $height));
+        return $img
+                ->resizeCanvas($min, $min, 'center')
+                ->resize($dest_width, $dest_height);
     }
 }
