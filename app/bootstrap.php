@@ -83,4 +83,6 @@ $app->mount("/user", function ($user) {
     $user->match("/", "OCROnline\\Controller\\UserController::indexAction");
 });
 
+$app->match("/show/image/{id}", "OCROnline\\Controller\\ShowController::imageAction");
+
 $app->run();
