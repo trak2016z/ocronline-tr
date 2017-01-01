@@ -1,10 +1,26 @@
 {% macro entry(document) %}
-<div class="card">
-  <img class="card-img-top img-fluid" src="/show/thumbnail/{{ document.id }}" alt="Card image cap">
+<div class="card ocronline-card">
+  <div class="ocronline-overlay">
+    <img class="card-img-top img-fluid" src="/show/thumbnail/{{ document.id }}" alt="Card image cap">
+    <div class="ocronline-overlay-inside">
+        <p class="card-text">{{ document.abstract }}</p>
+        <div class="ocronline-overlay-gradient"> </div>
+    </div>
+  </div>
   <div class="card-block">
-    <h4 class="card-title">{{ document.title }}</h4>
-    <p class="card-text">{{ document.abstract }}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <h4 class="card-title"><a href="/document/show/{{ document.id }}">{{ document.title }}</a></h4>
+  </div>
+  <div class="card-footer text-muted">
+    <ul class="fa-ul">
+        <li>
+            <i class="fa-li fa fa-calendar" aria-hidden="true"></i>
+            {{ document.creationDatetime|date('Y-m-d H:i:s') }}
+        </li>
+        <li>
+            <i class="fa-li fa fa-user" aria-hidden="true"></i>
+            <a href="/user/show/{{ document.user.id }}">{{ document.user.username }}</a>
+        </li>
+    </ul>
   </div>
 </div>
 {% endmacro %}

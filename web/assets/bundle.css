@@ -5294,7 +5294,7 @@ tbody.collapse.in {
 
   .card-deck .card {
     -webkit-box-flex: 1;
-        -ms-flex: 1 0 0px;
+        -ms-flex: 1 0 0;
             flex: 1 0 0;
     margin-right: 0.625rem;
     margin-bottom: 0;
@@ -5313,7 +5313,7 @@ tbody.collapse.in {
 
   .card-group .card {
     -webkit-box-flex: 1;
-        -ms-flex: 1 0 0px;
+        -ms-flex: 1 0 0;
             flex: 1 0 0;
   }
 
@@ -8171,6 +8171,51 @@ body {
        -moz-column-count: 4;
             column-count: 4;
   }
+}
+
+.ocronline-card .ocronline-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.ocronline-card .ocronline-overlay .ocronline-overlay-inside {
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 200ms;
+          transition-duration: 200ms;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+.ocronline-card .ocronline-overlay .ocronline-overlay-inside:hover {
+  opacity: 1;
+}
+
+.ocronline-card .card-footer {
+  font-size: 80%;
+}
+
+.ocronline-card .card-footer .fa-ul {
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+.ocronline-card .ocronline-overlay-gradient {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: -webkit-linear-gradient(top, transparent 70%, black 100%);
+  background: linear-gradient(to bottom, transparent 70%, black 100%);
 }
 
 

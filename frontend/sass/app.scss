@@ -40,3 +40,42 @@ body {
     column-count: 4;
   }
 }
+
+.ocronline-card {
+    .ocronline-overlay {
+        position: relative;
+        overflow: hidden;
+        .ocronline-overlay-inside {
+            opacity: 0;
+            background: rgba(0,0,0,0.7);
+            transition-property: opacity;
+            transition-duration: 200ms;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    .card-footer {
+        font-size: 80%;
+        .fa-ul {
+            margin-left: 10px;
+            margin-bottom: 0px;
+        }
+    }
+    .ocronline-overlay-gradient {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 70%,rgba(0,0,0,1) 100%);
+    }
+}
