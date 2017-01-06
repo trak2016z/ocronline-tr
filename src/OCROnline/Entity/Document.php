@@ -38,7 +38,7 @@ class Document
     private $title;
 
     /**
-     * @Column(type="string", length=150, nullable=true)
+     * @Column(type="string", length=300, nullable=true)
      */
     private $abstract;
 
@@ -71,6 +71,16 @@ class Document
      * @Column(name="creation_datetime", type="datetime")
      */
     private $creationDatetime;
+
+    /**
+     * @Column(name="already_scanned", type="boolean")
+     */
+    private $alreadyScanned = false;
+
+    /**
+     * @Column(name="lang", type="string", length=30)
+     */
+    private $lang = "pol";
 
     private $fileupload;
 
@@ -169,6 +179,26 @@ class Document
         $this->creationDatetime = $creationDatetime;
     }
 
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    }
+
+    public function getRecognizedText()
+    {
+        return $this->recognizedText;
+    }
+
+    public function getAlreadyScanned()
+    {
+        return $this->alreadyScanned;
+    }
+
     public function readFileContents()
     {
         if ($this->fileupload->isValid())
@@ -203,5 +233,18 @@ class Document
         return $img
                 ->resizeCanvas($min, $min, 'center')
                 ->resize($dest_width, $dest_height);
+    }
+
+    public function doRecognize()
+    {
+        $temp = tmpfile();
+        $meta_data = stream_get_meta_data($temp);
+        fwrite($temp, stream_get_contents($this->fileContent));
+        $this->recognizedText = (new \TesseractOCR($meta_data['uri']))
+                                ->lang($this->lang)
+                                ->run();
+        fclose($temp);
+        $this->abstract = substr($this->recognizedText,0,197) . '...';
+        $this->alreadyScanned = true;
     }
 }

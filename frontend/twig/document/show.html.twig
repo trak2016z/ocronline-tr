@@ -2,6 +2,63 @@
 
 {% block body %}
 <div class="container">
-    Dd
+    <div class="row">
+        <div class="col-md-6">
+            {% if owned_by_user %}
+                <div class="card">
+                    <div class="card-block">
+                        <h3>Przetwarzanie OCR</h3>
+                        {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="form-group row">
+                                {{ form_label(form.lang, 'Język', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.lang, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            {% if form_errors(form.lang) %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    {{ form_errors(form.lang) }}
+                                </div>
+                            {% endif %}
+                            <div class="form-group row">
+                                <div class="offset-sm-3 col-sm-9">
+                                    {{ form_widget(form.recognize, {'label': 'Uruchom OCR','attr': {'class': 'btn btn-primary'}})}}
+                                </div>
+                            </div>
+
+                            {{ form_widget(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% else %}
+                
+            {% endif %}
+            {% if document.alreadyScanned %}
+                <div class="card">
+                    <div class="card-block">
+                        {{ document.recognizedText | nl2br }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    <strong>Brak treści!</strong> Ten dokument nie został jeszcze przeskanowany.
+                    {% if owned_by_user %}
+                        Możesz to zrobić teraz, korzystając z formularza powyżej.
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>Obraz źródłowy</h2>
+            <div class="card">
+                <img class="img-fluid" src="/show/image/{{ document.id }}" alt="{{ document.abstract }}">
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
