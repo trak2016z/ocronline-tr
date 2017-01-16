@@ -42,7 +42,12 @@ class DocumentController
 
     public function lastAction(Request $request, Application $app)
     {
-        return $app['twig']->render('document/last.html.twig');
+        $em = $app['orm.em'];
+        $documents = $em->getRepository('OCROnline\Entity\Document')->findPublicOrderedByNewest();
+        return $app['twig']->render('document/last.html.twig',
+                                    array(
+                                        'documents' => $documents,
+                                    ));
     }
 
     public function bestAction(Request $request, Application $app)

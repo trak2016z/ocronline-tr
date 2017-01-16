@@ -6,7 +6,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @Table(name="documents")
- * @Entity()
+ * @Entity(repositoryClass="OCROnline\Repository\DocumentRepository")
  */
 class Document
 {
