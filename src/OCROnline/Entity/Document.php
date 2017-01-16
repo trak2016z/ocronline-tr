@@ -244,7 +244,7 @@ class Document
                                 ->lang($this->lang)
                                 ->run();
         fclose($temp);
-        $this->abstract = substr($this->recognizedText,0,197) . '...';
+        $this->abstract = mb_substr($this->recognizedText,0,197) . '...';
         $this->alreadyScanned = true;
     }
 }

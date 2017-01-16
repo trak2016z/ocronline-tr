@@ -39,4 +39,14 @@ class DocumentController
                     'form' => $form->createView(),
                 ));
     }
+
+    public function lastAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('document/last.html.twig');
+    }
+
+    public function bestAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('document/best.html.twig');
+    }
 }

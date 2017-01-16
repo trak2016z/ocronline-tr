@@ -88,6 +88,8 @@ $app->match("/show/thumbnail/{id}", "OCROnline\\Controller\\ShowController::thum
 
 $app->mount("/document", function ($document) {
     $document->match("/show/{id}", "OCROnline\\Controller\\DocumentController::showAction");
+    $document->match("/best", "OCROnline\\Controller\\DocumentController::bestAction");
+    $document->match("/last", "OCROnline\\Controller\\DocumentController::lastAction");
 });
 
 $app->run();
