@@ -35,6 +35,51 @@
                         {{ form_end(form) }}
                     </div>
                 </div>
+
+                <div class="card card-block">
+                    <h4 class="card-title">Edycja</h4>
+                    
+                    {{ form_start(form_edit) }}
+                        {{ form_errors(form_edit) }}
+                        <div class="form-group row">
+                            {{ form_label(form_edit.title, 'Tytuł', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                            
+                            <div class="col-sm-9">
+                                {{ form_widget(form_edit.title, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        {% if form_errors(form_edit.title) %}
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        {{ form_errors(form_edit.title) }}
+                        </div>
+                        {% endif %}
+                        <div class="form-group row">
+                            {{ form_label(form_edit.privacy, 'Prywatność', {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                            
+                            <div class="col-sm-9">
+                                {{ form_widget(form_edit.privacy, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        {% if form_errors(form_edit.privacy) %}
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        {{ form_errors(form_edit.privacy) }}
+                        </div>
+                        {% endif %}
+                        <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                                {{ form_widget(form_edit.doedit, {'label': 'Edytuj','attr': {'class': 'btn btn-primary'}})}}
+                            </div>
+                        </div>
+
+                        {{ form_widget(form_edit) }}
+                    {{ form_end(form_edit) }}
+            </div>
             {% else %}
                 
             {% endif %}

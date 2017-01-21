@@ -4,14 +4,14 @@ namespace OCROnline\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use OCROnline\Form\DocumentType;
+use OCROnline\Form\DocumentUploadType;
 
 class UserController
 {
     public function indexAction(Request $request, Application $app)
     {
         $document = new \OCROnline\Entity\Document();
-        $form = $app['form.factory']->createBuilder(DocumentType::class, $document)->getForm();
+        $form = $app['form.factory']->createBuilder(DocumentUploadType::class, $document)->getForm();
         $form->handleRequest($request);
         $em = $app['orm.em'];
         $token = $app['security.token_storage']->getToken();

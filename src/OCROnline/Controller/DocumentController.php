@@ -5,6 +5,7 @@ namespace OCROnline\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use OCROnline\Form\RecognizeType;
+use OCROnline\Form\DocumentEditType;
 
 class DocumentController
 {
@@ -23,13 +24,23 @@ class DocumentController
         $owned_by_user = $auth_check->isGranted('ROLE_USER')
                         && ( $auth_check->isGranted('ROLE_ADMIN')
                              || ($user->getId() == $document->getUser()->getId()) );
-        
+
         $form = $app['form.factory']->createBuilder(RecognizeType::class, $document)->getForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $document->doRecognize();
-            $em->persist($document);
-            $em->flush();
+
+        $form_edit = $app['form.factory']->createBuilder(DocumentEditType::class, $document)->getForm();
+        if ($owned_by_user) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $document->doRecognize();
+                $em->persist($document);
+                $em->flush();
+            }
+
+            $form_edit->handleRequest($request);
+            if ($form_edit->isSubmitted() && $form_edit->isValid()) {
+                $em->persist($document);
+                $em->flush();
+            }
         }
 
         return $app['twig']->render('document/show.html.twig',
@@ -37,6 +48,7 @@ class DocumentController
                     'document' => $document,
                     'owned_by_user' => $owned_by_user,
                     'form' => $form->createView(),
+                    'form_edit' => $form_edit->createView(),
                 ));
     }
 

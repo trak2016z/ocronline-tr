@@ -56,4 +56,4 @@ jsconfig.json
 !/app/cache/.gitkeep
 .vscode
 /app/logs/*
-!/app/cache/.gitkeep
+!/app/cache/doctrine/proxy/.gitkeep

@@ -8,8 +8,9 @@ module.exports = {
     entry: [
         'jquery',
         'tether',
-        'bootstrap-loader',
         'font-awesome-webpack',
+        'bootstrap-loader',
+        
         __dirname + '/frontend/js/app.js',
 
     ],
@@ -47,11 +48,11 @@ module.exports = {
             { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
             {
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url?limit=10000"
+                loader: "url-loader?limit=10000"
             },
             {
                 test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-                loader: 'file'
+                loader: 'file-loader'
             },
             {
                 test: /\.js$/,
