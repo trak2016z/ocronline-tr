@@ -43,7 +43,7 @@ class RecognizeType extends AbstractType
                     'Dzongkha' => 'dzo',
                     'Greek, Modern (1453-)' => 'ell',
                     'English' => 'eng',
-                    'English, Middle (1100-1500)' => 'enm, ',
+                    'English, Middle (1100-1500)' => 'enm',
                     'Esperanto' => 'epo',
                     'Estonian' => 'est',
                     'Basque' => 'eus',
