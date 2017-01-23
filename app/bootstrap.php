@@ -92,4 +92,11 @@ $app->mount("/document", function ($document) {
     $document->match("/last", "OCROnline\\Controller\\DocumentController::lastAction");
 });
 
+$app->error(function(Symfony\Component\HttpKernel\Exception\HttpException $e, Symfony\Component\HttpFoundation\Request $request, $code) use ($app) {
+    $twig = $app['twig']->render('error.html.twig', array(
+        'message' => $e->getMessage()
+    ));
+    return new Symfony\Component\HttpFoundation\Response($twig);
+});
+
 $app->run();

@@ -1,5 +1,5 @@
 {% macro entry(document) %}
-<div class="card ocronline-card">
+<div class="card ocronline-card {% if document.privacy == 0 %} card-outline-primary {% elseif document.privacy == 1 %} card-outline-success {% endif %}">
   <div class="ocronline-overlay">
     <img class="card-img-top img-fluid" src="/show/thumbnail/{{ document.id }}" alt="Card image cap">
     <div class="ocronline-overlay-inside">
@@ -19,6 +19,18 @@
         <li>
             <i class="fa-li fa fa-user" aria-hidden="true"></i>
             <a href="/user/show/{{ document.user.id }}">{{ document.user.username }}</a>
+        </li>
+        <li>
+            {% if document.privacy == 0 %}
+                <i class="fa-li fa fa-globe" aria-hidden="true"></i>
+                Publiczny
+            {% elseif document.privacy == 1 %}
+                <i class="fa-li fa fa-unlock-alt" aria-hidden="true"></i>
+                Niepubliczny
+            {% else %}
+                <i class="fa-li fa fa-lock" aria-hidden="true"></i>
+                Tylko ja
+            {% endif %}
         </li>
     </ul>
   </div>

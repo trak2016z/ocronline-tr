@@ -25,6 +25,10 @@ class DocumentController
                         && ( $auth_check->isGranted('ROLE_ADMIN')
                              || ($user->getId() == $document->getUser()->getId()) );
 
+        if (($document->getPrivacy() == 2) && !$owned_by_user) {
+            $app->abort(403, 'Ten dokument jest prywatny.');
+        }
+
         $form = $app['form.factory']->createBuilder(RecognizeType::class, $document)->getForm();
 
         $form_edit = $app['form.factory']->createBuilder(DocumentEditType::class, $document)->getForm();

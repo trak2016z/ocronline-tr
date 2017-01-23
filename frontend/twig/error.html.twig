@@ -1,0 +1,16 @@
+{% extends "/layout.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <div class="card card-outline-danger text-center">
+        <div class="card-block">
+            <img src="assets/images/notfound.svg">
+            <h1>Coś się popsuło</h1>
+            <p>{{ message }}</p>
+            <div>
+                <a class="btn btn-primary" href="/" role="button">Przejdź do strony głównej</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
