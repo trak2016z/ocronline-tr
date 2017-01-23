@@ -81,6 +81,7 @@ $app->match("/register", "OCROnline\\Controller\\RegisterController::indexAction
 
 $app->mount("/user", function ($user) {
     $user->match("/", "OCROnline\\Controller\\UserController::indexAction");
+    $user->match("/show/{user_id}", "OCROnline\\Controller\\UserController::showAction");
 });
 
 $app->match("/show/image/{id}", "OCROnline\\Controller\\ShowController::imageAction");

@@ -14,8 +14,22 @@ class ShowController
         $em = $app['orm.em'];
         $document = $em->find("OCROnline\Entity\Document", $id);
         if (!$document) {
-            $app->abort(404, 'Dokument nie istenieje.');
+            $app->abort(404, 'Dokument nie istnieje.');
         }
+
+        $token = $app['security.token_storage']->getToken();
+        $user = $token->getUser();
+
+        $auth_check = $app['security.authorization_checker'];
+
+        $allowed = ($document->getPrivacy() != 2) || ( $auth_check->isGranted('ROLE_USER')
+                           && ( $auth_check->isGranted('ROLE_ADMIN')
+                           || ($user->getId() == $document->getUser()->getId()) ));
+
+        if (!$allowed) {
+            $app->abort(403, 'Brak uprawnień.');
+        }
+        
         $source = null;
         $mimetype = null;
         if ($thumbnail) { 

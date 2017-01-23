@@ -98,6 +98,30 @@
                     {% endif %}
                 </div>
             {% endif %}
+            {% if owned_by_user %}
+                <div class="card card-outline-danger">
+                    <div class="card-block">
+                        <h3 class="danger">Usuń dokument</h3>
+                        {{ form_start(form_delete) }}
+                        {{ form_errors(form_edit) }}
+                        <div class="form-group row">
+                            <div class="form-check has-danger">
+                                <label class="form-check-label">
+                                    {{ form_widget(form_delete.confirmation, {'attr': {'class': 'form-check-input'}}) }}
+                                    Potwierdzam chęć usunięcia
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="">
+                                {{ form_widget(form_delete.delete, {'label': 'Usuń','attr': {'class': 'btn btn-danger'}})}}
+                            </div>
+                        </div>
+                        {{ form_widget(form_delete) }}
+                        {{ form_end(form_delete)}}
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <div class="col-md-6">
             <h2>Obraz źródłowy</h2>

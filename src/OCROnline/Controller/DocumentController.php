@@ -6,6 +6,9 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use OCROnline\Form\RecognizeType;
 use OCROnline\Form\DocumentEditType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DocumentController
 {
@@ -32,6 +35,16 @@ class DocumentController
         $form = $app['form.factory']->createBuilder(RecognizeType::class, $document)->getForm();
 
         $form_edit = $app['form.factory']->createBuilder(DocumentEditType::class, $document)->getForm();
+        
+        $form_delete = $app['form.factory']->createBuilder(FormType::class, array())
+                            ->add('confirmation', CheckboxType::class, array(
+                                'label' => 'Potwierdź chęć usunięcia:',
+                                'required' => true,
+                            ))
+                            ->add('delete', SubmitType::class)
+                            ->getForm()
+        ;
+
         if ($owned_by_user) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -45,6 +58,15 @@ class DocumentController
                 $em->persist($document);
                 $em->flush();
             }
+
+            $form_delete->handleRequest($request);
+
+            $del_data = $form_delete->getData();
+            if (isset($del_data['confirmation']) && $del_data['confirmation']) {
+                $em->remove($document);
+                $em->flush();
+                return $app->redirect('/user/');
+            }
         }
 
         return $app['twig']->render('document/show.html.twig',
@@ -53,6 +75,7 @@ class DocumentController
                     'owned_by_user' => $owned_by_user,
                     'form' => $form->createView(),
                     'form_edit' => $form_edit->createView(),
+                    'form_delete' => $form_delete->createView(),
                 ));
     }
 
